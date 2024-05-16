@@ -3,10 +3,14 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./routes/Home";
 import RootLayout from "./routes/RootLayout";
-import Products from "./routes/Products";
+import ProductsRootLayout from "./routes/ProductsRootLayout";
 import AboutUs from "./routes/AboutUs";
 import Cart from "./routes/Cart";
 import Auth from "./routes/Auth";
+import NewUser from "./routes/NewUser";
+import ProductDetail from "./routes/ProductDetail"
+import EditProduct from "./routes/EditProduct";
+import Opg from "./routes/Opg";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +20,19 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       {
         path: "/proizvodi",
-        element: <Products />,
+        element: <ProductsRootLayout />,
+        children: [
+          {
+            path: ":productId",
+            children: [
+              {
+                index: true,
+                element: <ProductDetail />,
+              },
+              { path: "uredi", element: <EditProduct /> },
+            ],
+          },
+        ],
       },
       {
         path: "/favoriti",
@@ -29,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: "/prijava",
         element: <Auth />,
+      },
+      {
+        path: "/registracija",
+        element: <NewUser />,
+      },
+      {
+        path: "/opg/:opgId",
+        element: <Opg />,
       },
     ],
   },
